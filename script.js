@@ -2,71 +2,105 @@ const settings = {
   name: "Malaak",
   title: "Happy Birthday",
   heroMessage:
-    "في كل لحظة، تذكرتكِ تجعل الروح تتوهج، وأحببتُكِ أكثر من أي كلمات يمكن أن تُكتب.",
-  relationshipStart: new Date("2021-05-12T00:00:00"),
+  "Happy 24th Birthday ❤️ اليوم كله ليكي. كل سنة وإنتِ أكتر شخص بحب أشاركه أي حاجة حلوة في حياتي.",
+
+  relationshipStart: new Date("2024-08-18T00:00:00"),
   loveLetter:
-    "حبيبتي، أنتِ أجمل ما في حياتي، وأكرم ما في قلبي. كل يوم أتعلم منكِ معنى الحب الحقيقي، والضحك، والسكينة، والاحتفال بالوجود مع شخصٍ يجعل الدنيا أجمل. أتمنى لكِ عيد ميلاد مليء بالحب والبهجة والذكريات التي لا تمحى. أحبكِ إلى ما لا نهاية.",
+  "مش محتاج أكتب كلام كبير علشان أوصف اللي حاسه. كل اللي أعرفه إن وجودك في حياتي غيّر حاجات كتير للأحسن، وبقى عندي شخص بحب أشاركه كل حاجة. أتمنى أشوفك دايمًا مبسوطة، وأفضل جنبك في كل عيد ميلاد جاي. Happy Birthday يا ملوكه. ❤️. Happy Birthday يا أجمل بنت في الدنيا. ❤️",
+
   giftSurprise:
-    "هذا صندوق صغير يحمل حبًا كبيرًا، وقلوبًا تتساقط في كل مرة تفتحين فيه ذكرى جميلة. أنتِ أجمل هدية في حياتي.",
+  "يمكن مفيش هدية جوه الصندوق... لكن فيه حاجة أهم بالنسبة ليا: شوية ذكريات، شوية مشاعر، وكل الحب اللي نفسي يوصلك. كل سنة وإنتِ أجمل حاجة حصلتلي. ❤️.",
+
   finalMessage:
-    "شكرًا لأنكِ جزء من قصتي، ولأنكِ نجمة كل يوم. أسعد الناس من يملك قلبًا مثل قلبكِ، وأحبّهم من يختاره الله لي.",
+  "وجودك في حياتي كان من أحلى الحاجات اللي حصلتلي. وكل سنة بتمر، بتأكد إني محظوظ إنك معايا. Happy Birthday ❤️",
+
   storyEvents: [
     {
-      date: "أول رسالة",
-      title: "بداية الحكاية",
-      description: "بدأ كل شيء برسالة صغيرة حملت في طياتها أول ابتسامة من قلبٍ لم يعرف بعد كيف يحب.",
+      date: "18 Aug 2024",
+      title: "البداية",
+      description: "كل حاجة بدأت برسالة عادية... ومكنتش أعرف إنها هتغير حياتي بالشكل ده.. مكالمه مكنتش عامل حسابها، ضحكة مكنتش متخيل إنها هتفضل معايا طول العمر.",
       icon: "fa-solid fa-envelope",
       image: "assets/images/photo1.jpg",
       side: "left",
     },
     {
       date: "أول مكالمة",
-      title: "أول صوتٍ لكِ",
-      description: "كانت مكالمة قصيرة، لكنها أخرجت من قلبي كل الهموم وأدخلت فيه صداقةً لا تُنسى.",
+      title: "أول مرة أسمع صوتك",
+      description: "من أول مكالمة حسيت إن الكلام معاكي ملوش وقت، وكل دقيقة كانت بتعدي بسرعة.",
       icon: "fa-solid fa-phone",
-      image: "assets/images/photo2.jpg",
+      image: "assets/images/1784640948322.jpg",
       side: "right",
     },
     {
-      date: "أول مقابلة",
-      title: "أول لقاء حقيقي",
-      description: "أول لقاء كان كأن الوقت توقف، والكون نفسه توقف ليشهد لحظة لم نكن نعرف أنها ستصبح ذكرى.",
-      icon: "fa-solid fa-heart-crack",
-      image: "assets/images/photo3.jpg",
+      date: "أول خروجة",
+      title: "أول لقاء",
+      description:
+        "أول مرة شفتك فيها كانت مختلفة عن أي يوم عادي... ومن وقتها بقى كل لقاء ليه طعم خاص.",
+      icon: "fa-solid fa-heart",
+      image: "assets/images/20241113_143707.jpg",
       side: "left",
     },
     {
       date: "أول صورة",
-      title: "أول لحظة تُحفظ",
-      description: "صورة بسيطة، لكن فيها كل ما يشبه السعادة والهدوء والضوء الذي نبحث عنه في كل يوم.",
+      title: "ذكرى اتحفظت",
+      description:
+        "صورة واحدة كانت كفاية تخليني كل ما أشوفها أفتكر قد إيه اليوم ده كان جميل.",
       icon: "fa-solid fa-camera",
-      image: "assets/images/photo4.jpg",
+      image: "assets/images/IMG-20241128-WA0009.jpg",
       side: "right",
     },
     {
-      date: "أجمل ذكرى",
-      title: "المسافة أصبحت قريبة",
-      description: "أجمل ذكرياتنا هي التي صنعناها خطوة بخطوة، حتى صارت في قلبينا مكانًا لا يحلّ عليه النسيان.",
+      date: "كل الذكريات",
+      title: "أحلى أيامنا",
+      description:
+        "كل خروجة، وكل ضحكة، وكل صورة... عملوا ذكريات نفسي أفضل أعيشها معاكي.",
       icon: "fa-solid fa-star",
-      image: "assets/images/photo5.jpg",
+      image: "assets/images/1784643350262.jpg",
       side: "left",
     },
     {
-      date: "اليوم",
-      title: "كل يومٍ جديد",
-      description: "واليوم، ومع كل عيد ميلاد جديد، أُعيد لكِ الحب نفسه لكن بمشاعر أعمق وأقوى.",
-      icon: "fa-solid fa-gift",
-      image: "assets/images/photo6.jpg",
+      date: "24th Birthday",
+      title: "عيد ميلادك",
+      description:
+        "النهارده مش مجرد عيد ميلاد... النهارده اليوم اللي اتولدت فيه أجمل بنت عرفتها.",
+      icon: "fa-solid fa-cake-candles",
+      image: "assets/images/1784640948222.jpg",
       side: "right",
     },
   ],
   galleryImages: [
-    { src: "assets/images/photo1.jpg", alt: "صورة حب", title: "أول لحظة" },
-    { src: "assets/images/photo2.jpg", alt: "صورة حب", title: "أول ضحكة" },
-    { src: "assets/images/photo3.jpg", alt: "صورة حب", title: "أول لقاء" },
-    { src: "assets/images/photo4.jpg", alt: "صورة حب", title: "أول ذكرى" },
-    { src: "assets/images/photo5.jpg", alt: "صورة حب", title: "أجمل خريف" },
-    { src: "assets/images/photo6.jpg", alt: "صورة حب", title: "ليلة من السعادة" },
+    { src: "assets/images/photo1.jpg", alt: "Memory", title: "كل حاجة حلوة بدأت من هنا. ❤️" },
+    { src: "assets/images/1784640948313.jpg", alt: "Memory", title: "الصورة دي كفاية ترجعلي إحساس اليوم كله." },
+    { src: "assets/images/1784640948103.jpg", alt: "Memory", title: "الأمان كله وأنا جنبك ومعاكي." },
+    { src: "assets/images/1784640948291.jpg", alt: "Memory", title: "إني أشوفك كويسة... دي الدنيا كلها بالنسبالي." },
+    { src: "assets/images/1784640948094.jpg", alt: "Memory", title: "أجمل ضحكة شوفتها كانت هنا." },
+    { src: "assets/images/1784640947987.jpg", alt: "Memory", title: "كل مرة ببص للصورة دي بابتسم." },
+    { src: "assets/images/1784640948073.jpg", alt: "Memory", title: "معاكي حتى الأيام العادية بقت مميزة." },
+    { src: "assets/images/1784640948167.jpg", alt: "Memory", title: "مكان حلو... لأنك كنتي فيه." },
+    { src: "assets/images/1784640948247.jpg", alt: "Memory", title: "اللحظة دي تستحق تتكرر ألف مرة." },
+    { src: "assets/images/1784640948255.jpg", alt: "Memory", title: "كل صورة ليكي سبب جديد إني أحبك أكتر." },
+    { src: "assets/images/1784640948054.jpg", alt: "Memory", title: "من أحلى الأيام اللي عشناها." },
+    { src: "assets/images/1784640948142.jpg", alt: "Memory", title: "وشك الحلو هو أحلى منظر." },
+    { src: "assets/images/1784640947995.jpg", alt: "Memory", title: "الذكرى دي ليها مكان خاص عندي." },
+    { src: "assets/images/1784640948299.jpg", alt: "Memory", title: "كل تفصيلة في اليوم ده بحبها." },
+    { src: "assets/images/1784643350280.jpg", alt: "Memory", title: "كل سنة وإنتِ أجمل حاجة في حياتي." },
+    { src: "assets/images/1784640948262.jpg", alt: "Memory", title: "الراحة ليها ملامح... وملامحها إنتِ." },
+    { src: "assets/images/1784640948270.jpg", alt: "Memory", title: "وجودك لوحده بيغير أي يوم." },
+    { src: "assets/images/1784643350276.jpg", alt: "Memory", title: "أكتر صورة بحب أقف عندها." },
+    { src: "assets/images/1784643350285.jpg", alt: "Memory", title: "كل لحظة معاكي تستحق تتحفظ." },
+    { src: "assets/images/1784643350270.jpg", alt: "Memory", title: "أنا محظوظ إنك جزء من حياتي." },
+    { src: "assets/images/1784640947991.jpg", alt: "Memory", title: "كل مرة ببصلك بحس إن اختياري كان صح." },
+    { src: "assets/images/1784640948203.jpg", alt: "Memory", title: "أيام كتير عدت... وإنتِ أجملهم." },
+    { src: "assets/images/1784640948232.jpg", alt: "Memory", title: "الضحكة دي تستاهل الدنيا كلها." },
+    { src: "assets/images/1784640948346.jpg", alt: "Memory", title: "صورة بسيطة... لكن ذكرى كبيرة." },
+    { src: "assets/images/1784640948024.jpg", alt: "Memory", title: "كل حاجة كانت أحلى لأنك كنتي معايا." },
+    { src: "assets/images/1784640947973.jpg", alt: "Memory", title: "نفسي أفضل أصنع معاكي ذكريات أكتر." },
+    { src: "assets/images/1784640947977.jpg", alt: "Memory", title: "أنا بحب النسخة من نفسي اللي بتظهر معاكي." },
+    { src: "assets/images/20250430_203727.jpg", alt: "Memory", title: "الصورة دي فيها كمية سعادة مش طبيعية." },
+    { src: "assets/images/1784640948152.jpg", alt: "Memory", title: "كل يوم معاكي يستحق يتصور." },
+    { src: "assets/images/1784640947968.jpg", alt: "Memory", title: "وجودك هو أحلى حاجة حصلتلي." },
+    { src: "assets/images/20250516_125406.jpg", alt: "Memory", title: "كل عيد ميلاد وإحنا مع بعض. ❤️" },
+    { src: "assets/images/IMG-20250107-WA0017.jpg", alt: "Memory", title: "ودي مش آخر ذكرى... دي بداية لذكريات أكتر." },
   ],
 };
 
@@ -131,7 +165,7 @@ function setContent() {
             <div class="story-desc">${event.description}</div>
           </div>
           <div class="story-media">
-            <img src="${event.image}" alt="${event.title}" loading="lazy" />
+            <img src="${event.image}" alt="${event.title}" loading="lazy" style="object-position: ${event.focus || '50% 20%'}" />
           </div>
         </article>
       `
@@ -425,7 +459,11 @@ function animateHero() {
 
   function splitToSpans(el, step = 0.04) {
     const text = el.textContent || "";
-    const chars = Array.from(text);
+    // Detect RTL text (Hebrew/Arabic and related ranges)
+    const isRTLText = /[\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC]/.test(text);
+    let chars = Array.from(text);
+    // For RTL, reverse DOM insertion so visual order remains correct
+    if (isRTLText) chars = chars.reverse();
     el.innerHTML = "";
     chars.forEach((ch, i) => {
       const span = document.createElement("span");
@@ -434,6 +472,8 @@ function animateHero() {
       span.style.animationDelay = `${i * step}s`;
       el.appendChild(span);
     });
+    // Ensure element direction matches content so punctuation and LTR words render correctly
+    el.style.direction = isRTLText ? "rtl" : "ltr";
     return chars.length;
   }
 
