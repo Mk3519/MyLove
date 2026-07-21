@@ -1,5 +1,5 @@
 const settings = {
-  name: "حبيبتي",
+  name: "Malaak",
   title: "Happy Birthday",
   heroMessage:
     "في كل لحظة، تذكرتكِ تجعل الروح تتوهج، وأحببتُكِ أكثر من أي كلمات يمكن أن تُكتب.",
@@ -236,7 +236,7 @@ function unlockExperience() {
     passwordInput.value = "";
     toggleMusic();
   } else {
-    unlockMessage.textContent = "كلمة المرور غير صحيحة، حاول مرة أخرى.";
+    unlockMessage.textContent = "كلمة المرور غلط حبيبتي بس اللي تقدر تكتبو .";
   }
 }
 
