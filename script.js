@@ -70,6 +70,8 @@ const settings = {
   ],
 };
 
+// ====== DOM References ======
+const heroTitle = document.getElementById("heroTitle");
 const heroName = document.getElementById("heroName");
 const heroMessage = document.getElementById("heroMessage");
 const unlockScreen = document.getElementById("unlockScreen");
@@ -80,6 +82,7 @@ const unlockMessage = document.getElementById("unlockMessage");
 const togglePasswordVisibility = document.getElementById("togglePasswordVisibility");
 const storyTimeline = document.getElementById("storyTimeline");
 const galleryGrid = document.getElementById("galleryGrid");
+const finalTitle = document.getElementById("finalTitle");
 const finalName = document.getElementById("finalName");
 const finalMessage = document.getElementById("finalMessage");
 const letterContent = document.getElementById("letterContent");
@@ -90,18 +93,26 @@ const giftBox = document.getElementById("giftBox");
 const birthdayMusic = document.getElementById("birthdayMusic");
 const lightbox = document.getElementById("lightbox");
 const lightboxImage = document.getElementById("lightboxImage");
+const lightboxCaption = document.getElementById("lightboxCaption");
 const closeLightbox = document.getElementById("closeLightbox");
 const prevImage = document.getElementById("prevImage");
 const nextImage = document.getElementById("nextImage");
 const confettiLayer = document.getElementById("confettiLayer");
 const backgroundLayer = document.getElementById("backgroundLayer");
 const cursorGlow = document.getElementById("cursorGlow");
+const musicPlayer = document.getElementById("musicPlayer");
+const playerToggle = document.getElementById("playerToggle");
+const playerProgress = document.getElementById("playerProgress");
+
 let currentGalleryIndex = 0;
 let isMusicPlaying = false;
 
+// ====== Content ======
 function setContent() {
+  if (heroTitle) heroTitle.textContent = settings.title;
   heroName.textContent = settings.name;
   heroMessage.textContent = settings.heroMessage;
+  finalTitle.textContent = settings.title;
   finalName.textContent = settings.name;
   finalMessage.textContent = settings.finalMessage;
   letterContent.innerHTML = `<p>${settings.loveLetter}</p>`;
@@ -109,7 +120,7 @@ function setContent() {
 
   storyTimeline.innerHTML = settings.storyEvents
     .map(
-      (event, index) => `
+      (event) => `
         <article class="story-card ${event.side} reveal">
           <div class="story-content">
             <div class="story-icon"><i class="${event.icon}"></i></div>
@@ -118,7 +129,7 @@ function setContent() {
             <div class="story-desc">${event.description}</div>
           </div>
           <div class="story-media">
-            <img src="${event.image}" alt="${event.title}" />
+            <img src="${event.image}" alt="${event.title}" loading="lazy" />
           </div>
         </article>
       `
@@ -129,18 +140,42 @@ function setContent() {
     .map(
       (image, index) => `
         <button class="gallery-item ripple" type="button" data-title="${image.title}" data-index="${index}">
-          <img src="${image.src}" alt="${image.alt}" />
+          <img src="${image.src}" alt="${image.alt}" loading="lazy" />
         </button>
       `
     )
     .join("");
 }
 
+// ====== Gallery Interactions ======
+function initGalleryInteractions() {
+  if (!galleryGrid) return;
+  galleryGrid.querySelectorAll(".gallery-item").forEach((item) => {
+    item.addEventListener("mouseenter", () => {
+      galleryGrid.classList.add("hovered");
+      item.classList.add("focus");
+    });
+    item.addEventListener("mouseleave", () => {
+      galleryGrid.classList.remove("hovered");
+      item.classList.remove("focus");
+    });
+    item.addEventListener("focus", () => {
+      galleryGrid.classList.add("hovered");
+      item.classList.add("focus");
+    });
+    item.addEventListener("blur", () => {
+      galleryGrid.classList.remove("hovered");
+      item.classList.remove("focus");
+    });
+  });
+}
+
+// ====== Background Particles ======
 function createDecorations() {
   const layers = [
-    { type: "spark", count: 70 },
-    { type: "heart", count: 28 },
-    { type: "particle", count: 40 },
+    { type: "spark", count: 60 },
+    { type: "heart", count: 24 },
+    { type: "particle", count: 36 },
   ];
 
   layers.forEach((layer) => {
@@ -159,20 +194,23 @@ function createDecorations() {
   });
 }
 
+// ====== Confetti ======
 function spawnConfetti(count = 24) {
+  const colors = ["#ff5fa2", "#f5c97b", "#ffffff", "#ffb4d1", "#c2387a"];
   for (let i = 0; i < count; i += 1) {
     const piece = document.createElement("div");
     piece.className = "confetti";
-    const colors = ["#ff5fa2", "#ffd166", "#ffffff", "#ffb4d1"];
     piece.style.background = colors[Math.floor(Math.random() * colors.length)];
     piece.style.left = `${Math.random() * 100}%`;
-    piece.style.top = `-20px`;
-    piece.style.setProperty("--x", `${(Math.random() - 0.5) * 220}px`);
+    piece.style.top = "-20px";
+    piece.style.setProperty("--x", `${(Math.random() - 0.5) * 240}px`);
+    piece.style.animationDuration = `${3 + Math.random() * 2}s`;
     confettiLayer.appendChild(piece);
-    setTimeout(() => piece.remove(), 4200);
+    setTimeout(() => piece.remove(), 5000);
   }
 }
 
+// ====== Ripple ======
 function createRipple(event) {
   const button = event.currentTarget;
   const circle = document.createElement("span");
@@ -187,6 +225,7 @@ function createRipple(event) {
   setTimeout(() => circle.remove(), 700);
 }
 
+// ====== Love Counter ======
 function updateCounter() {
   const now = new Date();
   const diff = now - settings.relationshipStart;
@@ -195,25 +234,64 @@ function updateCounter() {
   const minutes = Math.floor((diff / (1000 * 60)) % 60);
   const seconds = Math.floor((diff / 1000) % 60);
 
-  document.querySelector('[data-unit="days"]').textContent = String(days).padStart(2, "0");
-  document.querySelector('[data-unit="hours"]').textContent = String(hours).padStart(2, "0");
-  document.querySelector('[data-unit="minutes"]').textContent = String(minutes).padStart(2, "0");
-  document.querySelector('[data-unit="seconds"]').textContent = String(seconds).padStart(2, "0");
+  const dEl = document.querySelector('[data-unit="days"]');
+  const hEl = document.querySelector('[data-unit="hours"]');
+  const mEl = document.querySelector('[data-unit="minutes"]');
+  const sEl = document.querySelector('[data-unit="seconds"]');
+  if (dEl) dEl.textContent = String(days).padStart(2, "0");
+  if (hEl) hEl.textContent = String(hours).padStart(2, "0");
+  if (mEl) mEl.textContent = String(minutes).padStart(2, "0");
+  if (sEl) sEl.textContent = String(seconds).padStart(2, "0");
 }
 
+// ====== Music ======
 async function toggleMusic() {
   try {
     await birthdayMusic.play();
     isMusicPlaying = true;
+    playerToggle.innerHTML = '<i class="fa-solid fa-pause"></i>';
   } catch (error) {
     console.warn("Audio playback was blocked", error);
   }
 }
 
+function initMusicPlayer() {
+  if (!birthdayMusic || !playerToggle) return;
+
+  playerToggle.addEventListener("click", (e) => {
+    e.stopPropagation();
+    if (birthdayMusic.paused) {
+      birthdayMusic.play();
+      playerToggle.innerHTML = '<i class="fa-solid fa-pause"></i>';
+    } else {
+      birthdayMusic.pause();
+      playerToggle.innerHTML = '<i class="fa-solid fa-play"></i>';
+    }
+  });
+
+  birthdayMusic.addEventListener("timeupdate", () => {
+    if (birthdayMusic.duration && playerProgress) {
+      const percent = (birthdayMusic.currentTime / birthdayMusic.duration) * 100;
+      playerProgress.style.width = percent + "%";
+    }
+  });
+
+  birthdayMusic.addEventListener("play", () => {
+    playerToggle.innerHTML = '<i class="fa-solid fa-pause"></i>';
+  });
+
+  birthdayMusic.addEventListener("pause", () => {
+    playerToggle.innerHTML = '<i class="fa-solid fa-play"></i>';
+  });
+}
+
+// ====== Lightbox ======
 function openLightbox(index) {
   currentGalleryIndex = index;
-  lightboxImage.src = settings.galleryImages[index].src;
-  lightboxImage.alt = settings.galleryImages[index].alt;
+  const img = settings.galleryImages[index];
+  lightboxImage.src = img.src;
+  lightboxImage.alt = img.alt;
+  if (lightboxCaption) lightboxCaption.textContent = img.title;
   lightbox.classList.remove("hidden");
 }
 
@@ -222,24 +300,46 @@ function closeLightboxView() {
 }
 
 function navigateLightbox(direction) {
-  currentGalleryIndex = (currentGalleryIndex + direction + settings.galleryImages.length) % settings.galleryImages.length;
-  lightboxImage.src = settings.galleryImages[currentGalleryIndex].src;
-  lightboxImage.alt = settings.galleryImages[currentGalleryIndex].alt;
+  currentGalleryIndex =
+    (currentGalleryIndex + direction + settings.galleryImages.length) %
+    settings.galleryImages.length;
+  const img = settings.galleryImages[currentGalleryIndex];
+  lightboxImage.src = img.src;
+  lightboxImage.alt = img.alt;
+  if (lightboxCaption) lightboxCaption.textContent = img.title;
 }
 
+// ====== Unlock ======
 function unlockExperience() {
   if (passwordInput.value === "2272003") {
-    unlockScreen.classList.add("hidden");
-    pageContent.classList.remove("hidden");
-    pageContent.classList.add("visible");
+    unlockScreen.style.opacity = "0";
+    unlockScreen.style.transition = "opacity 0.5s ease";
+    setTimeout(() => {
+      unlockScreen.classList.add("hidden");
+      pageContent.classList.remove("hidden");
+      requestAnimationFrame(() => pageContent.classList.add("visible"));
+      toggleMusic();
+      setTimeout(() => {
+        musicPlayer.classList.add("visible");
+      }, 600);
+    }, 500);
     unlockMessage.textContent = "";
     passwordInput.value = "";
-    toggleMusic();
   } else {
     unlockMessage.textContent = "كلمة المرور غلط حبيبتي بس اللي تقدر تكتبو .";
+    unlockScreen.querySelector(".unlock-card")?.animate(
+      [
+        { transform: "translateX(0)" },
+        { transform: "translateX(-8px)" },
+        { transform: "translateX(8px)" },
+        { transform: "translateX(0)" },
+      ],
+      { duration: 300, iterations: 1 }
+    );
   }
 }
 
+// ====== Reveal on Scroll ======
 function setupReveal() {
   const items = document.querySelectorAll(".reveal");
   const observer = new IntersectionObserver(
@@ -250,12 +350,12 @@ function setupReveal() {
         }
       });
     },
-    { threshold: 0.16 }
+    { threshold: 0.15 }
   );
-
   items.forEach((item) => observer.observe(item));
 }
 
+// ====== Magnetic Buttons ======
 function setupMagnetic() {
   document.querySelectorAll(".magnetic").forEach((element) => {
     element.addEventListener("pointermove", (event) => {
@@ -266,22 +366,68 @@ function setupMagnetic() {
       const offsetY = (y / rect.height - 0.5) * 8;
       element.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
     });
-
     element.addEventListener("pointerleave", () => {
       element.style.transform = "";
     });
   });
 }
 
+// ====== Parallax / Cursor Glow ======
 function setupParallax() {
   document.addEventListener("mousemove", (event) => {
-    const x = (event.clientX / window.innerWidth - 0.5) * 10;
-    const y = (event.clientY / window.innerHeight - 0.5) * 10;
-    cursorGlow.style.transform = `translate(${event.clientX - 120}px, ${event.clientY - 120}px)`;
-    document.querySelector(".hero-content")?.style.setProperty("transform", `translate3d(${x * 0.4}px, ${y * 0.4}px, 0)`);
+    cursorGlow.style.left = `${event.clientX}px`;
+    cursorGlow.style.top = `${event.clientY}px`;
+    const x = (event.clientX / window.innerWidth - 0.5) * 8;
+    const y = (event.clientY / window.innerHeight - 0.5) * 8;
+    const heroInner = document.querySelector(".hero-inner");
+    if (heroInner) {
+      heroInner.style.setProperty("transform", `translate3d(${x * 0.3}px, ${y * 0.3}px, 0)`);
+    }
   });
 }
 
+// ====== Hero Animation ======
+function animateHero() {
+  const h1 = document.getElementById("heroTitle");
+  const nameEl = document.getElementById("heroName");
+  const message = document.getElementById("heroMessage");
+  const startBtn = document.getElementById("startJourney");
+  if (!h1 || !nameEl) return;
+
+  function splitToSpans(el, step = 0.04) {
+    const text = el.textContent || "";
+    const chars = Array.from(text);
+    el.innerHTML = "";
+    chars.forEach((ch, i) => {
+      const span = document.createElement("span");
+      span.className = "char";
+      span.textContent = ch === " " ? "\u00A0" : ch;
+      span.style.animationDelay = `${i * step}s`;
+      el.appendChild(span);
+    });
+    return chars.length;
+  }
+
+  splitToSpans(h1, 0.045);
+  const nameCount = splitToSpans(nameEl, 0.06);
+
+  const delay = nameCount * 0.06 + 0.6;
+  setTimeout(() => {
+    nameEl.classList.add("shine");
+    if (message) message.classList.add("show");
+    if (startBtn) startBtn.classList.add("show");
+  }, delay * 1000);
+}
+
+// ====== Scroll Progress ======
+function updateScrollProgress() {
+  const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+  if (scrollHeight <= 0) return;
+  const progress = (window.scrollY / scrollHeight) * 100;
+  document.querySelector(".scroll-progress").style.width = progress + "%";
+}
+
+// ====== Event Listeners ======
 unlockForm.addEventListener("submit", (event) => {
   event.preventDefault();
   unlockExperience();
@@ -300,7 +446,6 @@ startJourneyButton.addEventListener("click", async (event) => {
   await toggleMusic();
   spawnConfetti();
   document.getElementById("story").scrollIntoView({ behavior: "smooth", block: "start" });
-  document.body.classList.add("journey-started");
 });
 
 envelopeButton.addEventListener("click", (event) => {
@@ -319,8 +464,9 @@ giftBox.addEventListener("click", (event) => {
 closeLightbox.addEventListener("click", closeLightboxView);
 prevImage.addEventListener("click", () => navigateLightbox(-1));
 nextImage.addEventListener("click", () => navigateLightbox(1));
+
 lightbox.addEventListener("click", (event) => {
-  if (event.target === lightbox) {
+  if (event.target === lightbox || event.target.classList.contains("lightbox-backdrop")) {
     closeLightboxView();
   }
 });
@@ -333,30 +479,27 @@ document.addEventListener("keydown", (event) => {
 });
 
 document.addEventListener("click", (event) => {
-  if (event.target.closest(".gallery-item")) {
-    const item = event.target.closest(".gallery-item");
-    const index = Number(item.getAttribute("data-index"));
-    openLightbox(index);
+  const item = event.target.closest(".gallery-item");
+  if (item) {
+    openLightbox(Number(item.getAttribute("data-index")));
+    return;
   }
-});
-
-document.addEventListener("click", (event) => {
   if (event.target.closest(".ripple")) {
     createRipple(event);
   }
 });
 
-document.addEventListener("click", (event) => {
-  if (event.target.closest(".ripple")) {
-    createRipple(event);
-  }
-});
+document.addEventListener("scroll", updateScrollProgress, { passive: true });
 
+// ====== Init ======
 setContent();
+animateHero();
 createDecorations();
 setupReveal();
 setupMagnetic();
 setupParallax();
+initGalleryInteractions();
+initMusicPlayer();
 updateCounter();
 setInterval(updateCounter, 1000);
-window.setInterval(() => spawnConfetti(6), 2200);
+window.setInterval(() => spawnConfetti(6), 2400);
