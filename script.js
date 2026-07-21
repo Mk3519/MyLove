@@ -106,6 +106,8 @@ const playerProgress = document.getElementById("playerProgress");
 
 let currentGalleryIndex = 0;
 let isMusicPlaying = false;
+// Detect touch devices (phones/tablets)
+const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
 
 // ====== Content ======
 function setContent() {
@@ -172,11 +174,18 @@ function initGalleryInteractions() {
 
 // ====== Background Particles ======
 function createDecorations() {
-  const layers = [
-    { type: "spark", count: 60 },
-    { type: "heart", count: 24 },
-    { type: "particle", count: 36 },
-  ];
+  // Use lighter decoration counts on touch devices to improve performance
+  const layers = isTouchDevice
+    ? [
+        { type: "spark", count: 8 },
+        { type: "heart", count: 4 },
+        { type: "particle", count: 6 },
+      ]
+    : [
+        { type: "spark", count: 60 },
+        { type: "heart", count: 24 },
+        { type: "particle", count: 36 },
+      ];
 
   layers.forEach((layer) => {
     for (let i = 0; i < layer.count; i += 1) {
@@ -197,7 +206,9 @@ function createDecorations() {
 // ====== Confetti ======
 function spawnConfetti(count = 24) {
   const colors = ["#ff5fa2", "#f5c97b", "#ffffff", "#ffb4d1", "#c2387a"];
-  for (let i = 0; i < count; i += 1) {
+  // Reduce confetti on touch devices
+  const effectiveCount = isTouchDevice ? Math.min(count, 8) : count;
+  for (let i = 0; i < effectiveCount; i += 1) {
     const piece = document.createElement("div");
     piece.className = "confetti";
     piece.style.background = colors[Math.floor(Math.random() * colors.length)];
@@ -357,6 +368,8 @@ function setupReveal() {
 
 // ====== Magnetic Buttons ======
 function setupMagnetic() {
+  // Disable magnetic pointer effects on touch devices (expensive and causes jitter)
+  if (isTouchDevice) return;
   document.querySelectorAll(".magnetic").forEach((element) => {
     element.addEventListener("pointermove", (event) => {
       const rect = element.getBoundingClientRect();
@@ -374,16 +387,32 @@ function setupMagnetic() {
 
 // ====== Parallax / Cursor Glow ======
 function setupParallax() {
-  document.addEventListener("mousemove", (event) => {
-    cursorGlow.style.left = `${event.clientX}px`;
-    cursorGlow.style.top = `${event.clientY}px`;
-    const x = (event.clientX / window.innerWidth - 0.5) * 8;
-    const y = (event.clientY / window.innerHeight - 0.5) * 8;
-    const heroInner = document.querySelector(".hero-inner");
-    if (heroInner) {
-      heroInner.style.setProperty("transform", `translate3d(${x * 0.3}px, ${y * 0.3}px, 0)`);
-    }
-  });
+  // Throttle mousemove updates with requestAnimationFrame
+  if (isTouchDevice) {
+    // hide or reduce cursor glow on touch devices
+    if (cursorGlow) cursorGlow.style.display = "none";
+    return;
+  }
+  let rafPending = false;
+  document.addEventListener(
+    "mousemove",
+    (event) => {
+      if (rafPending) return;
+      rafPending = true;
+      requestAnimationFrame(() => {
+        cursorGlow.style.left = `${event.clientX}px`;
+        cursorGlow.style.top = `${event.clientY}px`;
+        const x = (event.clientX / window.innerWidth - 0.5) * 8;
+        const y = (event.clientY / window.innerHeight - 0.5) * 8;
+        const heroInner = document.querySelector(".hero-inner");
+        if (heroInner) {
+          heroInner.style.setProperty("transform", `translate3d(${x * 0.3}px, ${y * 0.3}px, 0)`);
+        }
+        rafPending = false;
+      });
+    },
+    { passive: true }
+  );
 }
 
 // ====== Hero Animation ======
@@ -494,6 +523,7 @@ document.addEventListener("scroll", updateScrollProgress, { passive: true });
 // ====== Init ======
 setContent();
 animateHero();
+// Create lighter decorations on touch devices, or skip heavy ones
 createDecorations();
 setupReveal();
 setupMagnetic();
@@ -502,4 +532,5 @@ initGalleryInteractions();
 initMusicPlayer();
 updateCounter();
 setInterval(updateCounter, 1000);
-window.setInterval(() => spawnConfetti(6), 2400);
+// Only spawn recurring confetti on non-touch devices to avoid performance issues
+if (!isTouchDevice) window.setInterval(() => spawnConfetti(6), 2400);
