@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>عيد ميلاد حبيبتي</title>
+    <meta
+      name="description"
+      content="موقع عيد ميلاد فاخر ومتحرك بصيغة HTML و CSS و JavaScript فقط"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-..."
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="background-layer" id="backgroundLayer"></div>
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <div class="unlock-screen" id="unlockScreen">
+      <div class="unlock-card glass-card">
+        <p class="eyebrow">Secret Access</p>
+        <h2>أدخل كلمة المرور</h2>
+        <p>للاستمتاع بالرحلة بالكامل</p>
+        <form id="unlockForm">
+          <div class="password-field">
+            <input id="passwordInput" type="password" placeholder="اكتب كلمة المرور" autocomplete="off" required />
+            <button class="eye-btn" id="togglePasswordVisibility" type="button" aria-label="إظهار أو إخفاء كلمة المرور">
+              <i class="fa-solid fa-eye"></i>
+            </button>
+          </div>
+          <button class="primary-btn" type="submit">دخول</button>
+        </form>
+        <p id="unlockMessage" class="unlock-message"></p>
+      </div>
+    </div>
+
+    <div class="page-shell hidden" id="pageContent">
+      <header class="hero section reveal" id="hero">
+        <div class="hero-content">
+          <p class="eyebrow">Cinematic Birthday Experience</p>
+          <h1>Happy Birthday</h1>
+          <h2 class="hero-name" id="heroName"></h2>
+          <p class="hero-message" id="heroMessage"></p>
+          <button class="primary-btn magnetic ripple" id="startJourney" type="button">
+            <span>ابدئي الرحلة</span>
+          </button>
+        </div>
+        <div class="hero-badge glass-card">
+          <i class="fa-solid fa-heart"></i>
+          <p>قصة حب تبدأ من لحظة وتبقى إلى الأبد</p>
+        </div>
+      </header>
+
+      <main>
+        <section class="section reveal" id="story">
+          <div class="section-heading">
+            <p class="section-tag">Our Story</p>
+            <h3>قصة حبنا</h3>
+          </div>
+          <div class="timeline" id="storyTimeline"></div>
+        </section>
+
+        <section class="section reveal" id="gallery">
+          <div class="section-heading">
+            <p class="section-tag">Gallery</p>
+            <h3>معرض الصور</h3>
+          </div>
+          <div class="gallery-grid" id="galleryGrid"></div>
+        </section>
+
+        <section class="section reveal" id="counter">
+          <div class="glass-card counter-card">
+            <div class="section-heading centered">
+              <p class="section-tag">Love Counter</p>
+              <h3>عداد علاقتنا</h3>
+            </div>
+            <div class="counter-grid">
+              <div class="counter-item"><span data-unit="days">00</span><small>أيام</small></div>
+              <div class="counter-item"><span data-unit="hours">00</span><small>ساعات</small></div>
+              <div class="counter-item"><span data-unit="minutes">00</span><small>دقائق</small></div>
+              <div class="counter-item"><span data-unit="seconds">00</span><small>ثواني</small></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section reveal" id="letter">
+          <div class="section-heading">
+            <p class="section-tag">Love Letter</p>
+            <h3>رسالة حب</h3>
+          </div>
+          <div class="letter-wrap">
+            <button class="envelope magnetic ripple" id="envelopeButton" type="button">
+              <div class="envelope-flap"></div>
+              <div class="envelope-body"></div>
+              <div class="envelope-paper">
+                <i class="fa-solid fa-heart"></i>
+              </div>
+            </button>
+            <div class="letter-content glass-card hidden" id="letterContent"></div>
+          </div>
+        </section>
+
+        <section class="section reveal" id="gift">
+          <div class="section-heading">
+            <p class="section-tag">Gift</p>
+            <h3>هدية صغيرة</h3>
+          </div>
+          <div class="gift-shell">
+            <button class="gift-box magnetic ripple" id="giftBox" type="button">
+              <div class="gift-ribbon"></div>
+              <div class="gift-ribbon-alt"></div>
+              <div class="gift-lid"></div>
+              <div class="gift-base"></div>
+              <span class="gift-label">افتحني</span>
+            </button>
+            <div class="gift-surprise glass-card hidden" id="giftSurprise"></div>
+          </div>
+        </section>
+
+        <section class="section reveal" id="finale">
+          <div class="finale-card">
+            <h2>Happy Birthday</h2>
+            <h3 id="finalName"></h3>
+            <p id="finalMessage"></p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="lightbox hidden" id="lightbox">
+      <button class="lightbox-close ripple" id="closeLightbox" type="button">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <button class="lightbox-nav prev ripple" id="prevImage" type="button">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+      <img id="lightboxImage" src="" alt="" />
+      <button class="lightbox-nav next ripple" id="nextImage" type="button">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+    </div>
+
+    <div class="confetti-layer" id="confettiLayer"></div>
+
+    <audio id="birthdayMusic" preload="metadata" loop>
+      <source src="assets/music/song.mp3" type="audio/mpeg" />
+    </audio>
+
+    <script src="script.js"></script>
+  </body>
+</html>
