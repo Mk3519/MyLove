@@ -228,7 +228,7 @@ function navigateLightbox(direction) {
 }
 
 function unlockExperience() {
-  if (passwordInput.value === "25092025") {
+  if (passwordInput.value === "2272003") {
     unlockScreen.classList.add("hidden");
     pageContent.classList.remove("hidden");
     pageContent.classList.add("visible");
